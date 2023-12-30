@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { GlobalProvider } from './components/Global/GlobalContext'
+import Noteapp from './components/Notepad/Noteapp'
+import Component1 from './components/redux-test/Component1'
+import Component2 from './components/redux-test/Component2'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <GlobalProvider>
+      <h1>Noteapp-State-Test</h1>
+      <Noteapp />
+      {/* <hr />
+      <h1>Redux Test</h1>
+      <Component1 />
+      <Component2 /> */}
+    </GlobalProvider>
+  )
 }
-
-export default App;
