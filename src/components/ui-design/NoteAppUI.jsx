@@ -17,17 +17,16 @@ export default function NoteAppUI() {
 
     return (
         <>
-            <RendererUI setApp={setApp} isSmallScreen={isSmallScreen}/>
-            <NoteEditorUI setApp={setApp} isSmallScreen={isSmallScreen}/>
+            <RendererUI setApp={setApp} isSmallScreen={isSmallScreen} />
+            <NoteEditorUI setApp={setApp} isSmallScreen={isSmallScreen} />
         </>
     )
 }
 
 const containerStyle = {
-    maxHeight: '100dvh',
+    height: '100dvh',
     overflow: "auto",
-    //  backgroundColor:"grey",
-
+    backgroundColor: "grey",
 }
 
 const floatingButtonStyle = {

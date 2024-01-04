@@ -20,12 +20,22 @@ const artitecture = {
             containerStyle: {},
             editor: {
                 containerStyle: {},
-                titleStyle:{ overflow: "hidden", whiteSpace: "nowrap" },
-                descriptionStyle:{height:"300px"},
-                button:{
-                    title:"insert",
-                    style:{},
-                    onClick:alert
+                header: {
+                    containerStyle: {
+                        
+                    },
+                    titleStyle: { overflow: "hidden", whiteSpace: "nowrap" },
+                    colorpicker: {
+                        style: {}
+                    },
+                },
+                descriptionStyle: { height: "300px" },
+                button: {
+                    title: "insert",
+                    style: {},
+                    onClick: alert,
+                    create: alert,
+                    update: alert
                 }
             },
             renderer: {
@@ -37,16 +47,16 @@ const artitecture = {
                     deleteButton: {
                         title: "x",
                         style: {},
-                        onClick:()=>alert('deleteButton')
+                        onClick: () => alert('deleteButton')
                     },
-                    onClick:()=>alert('noteitemClicked')
+                    onClick: () => alert('noteitemClicked')
 
                 }
             },
             addButton: {
                 title: "+",
                 style: {},
-                onClick: ()=>alert('addButton')
+                onClick: () => alert('addButton')
             }
         }
     }
@@ -58,13 +68,13 @@ export const GlobalProvider = ({ children }) => {
 
 
     useEffect(() => {
-        const fetchNotes=async ()=>{
-            const notes=await getAllNotes();
-            updateAppState(setApp, notes,'modal notes');
+        const fetchNotes = async () => {
+            const notes = await getAllNotes();
+            updateAppState(setApp, notes, 'modal notes');
         }
 
-        setInitialFetch((prev)=>{
-            if(!prev){
+        setInitialFetch((prev) => {
+            if (!prev) {
                 fetchNotes();
             }
             return true;

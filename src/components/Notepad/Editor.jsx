@@ -1,47 +1,68 @@
 import React, { useContext, useEffect, useState } from 'react'
 import GlobalContext from '../Global/GlobalContext';
+import { useNavigate, useParams } from 'react-router-dom';
+import { updateAppState } from '../app-state-management/updateAppState';
+import currentDateToColor from './RandomColor';
 
-export default function Editor({ views, setEditMode }) {
+
+const dummyDetails = { description: "", color: currentDateToColor() };
+export default function Editor() {
+	const { noteId } = useParams();
+	const [formDetails, setFormDetails] = useState(dummyDetails);
 	const { app, setApp } = useContext(GlobalContext);
-	const [description, setDescription] = useState('');
+	const [, setInitialFetch] = useState(false);
+	const navigate = useNavigate();
 
-	const onDescriptionChange = (e) => {
-		setDescription(e.target.value)
+	useEffect(() => {
+		setInitialFetch((prev) => {
+			if (!prev) {
+				if (!isNaN(noteId)) {
+					updateAppState(setApp, app.views.noteapp.editor.button.update, 'views noteapp editor button onClick');
+					const foundNote = app.modal.notes.find((note) => note.id === parseInt(noteId));
+					setFormDetails(foundNote);
+				} else {
+					updateAppState(setApp, app.views.noteapp.editor.button.create, 'views noteapp editor button onClick');
+				}
+			}
+
+			return true;
+		})
+	}, [app.modal.notes, noteId])
+
+	const onFromDetailsChange = (e) => {
+		const { name, value } = e.target;
+		setFormDetails((prev) => ({ ...prev, [name]: value }));
 	}
 
-	const onSaveClick = async ()=> {
-		await app.views.noteapp.editor.button.onClick({ description: description, color: '#bde0fe' }, setApp, setEditMode);
-		setDescription('');
-		setEditMode(false);
+	const onSaveClick = async () => {
+		await app.views.noteapp.editor.button.onClick(formDetails, setApp);
+		setFormDetails(dummyDetails);
+		navigate(-1);
 	}
-
-
 
 
 	return (
-		<div style={views.containerStyle}>
-			<div ><input disabled placeholder='Title' value={description} style={views.titleStyle} /></div>
-			<TextAreaInput
-				label='Description'
-				id="note-description"
-				value={description}
-				onchangeFun={onDescriptionChange}
-				style={views.descriptionStyle}
-			/>
-			<button style={views.button.style}
+		<div style={app.views.noteapp.editor.containerStyle}>
+			<div style={app.views.noteapp.editor.header.containerStyle}>
+				<input disabled placeholder='Title'
+					value={formDetails.description}
+					style={app.views.noteapp.editor.header.titleStyle} />
+				<input type="color" name='color'
+					style={app.views.noteapp.editor.header.colorpicker.style}
+					value={formDetails.color}
+					onChange={onFromDetailsChange} />
+			</div>
+			<textarea
+				name='description'
+				value={formDetails.description}
+				onChange={onFromDetailsChange}
+				style={app.views.noteapp.editor.descriptionStyle} />
+
+			<button style={app.views.noteapp.editor.button.style}
 				onClick={onSaveClick}
 			>
-				{views.button.title}
+				{app.views.noteapp.editor.button.title}
 			</button>
-		</div>
-	)
-}
-
-function TextAreaInput({ label, id, value, onchangeFun, style }) {
-	return (
-		<div>
-			{/* <label htmlFor={id}>{label}</label><br /> */}
-			<textarea placeholder={label} id={id} value={value} onChange={onchangeFun} style={style} />
 		</div>
 	)
 }

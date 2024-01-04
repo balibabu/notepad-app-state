@@ -5,10 +5,12 @@ export default function NoteEditorUI({ setApp }) {
 
     useEffect(() => {
         updateAppState(setApp, containerStyle, 'views noteapp editor containerStyle');
-        updateAppState(setApp, titleStyle, 'views noteapp editor titleStyle');
+        updateAppState(setApp, headerContainerStyle, 'views noteapp editor header containerStyle');
+        updateAppState(setApp, colorPickerStyle, 'views noteapp editor header colorpicker style');
+        updateAppState(setApp, titleStyle, 'views noteapp editor header titleStyle');
         updateAppState(setApp, descriptionStyle, 'views noteapp editor descriptionStyle');
         updateAppState(setApp, floatingButtonStyle, 'views noteapp editor button style');
-        
+
     }, [])
 
     return (
@@ -28,11 +30,21 @@ export default function NoteEditorUI({ setApp }) {
 //     }
 // },
 
-const containerStyle={
+const containerStyle = {
     background: '#219ebc',
     margin: '0px',
     padding: '0px',
-    height: '88dvh',
+    height: '100dvh',
+}
+const headerContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding:"10px"
+}
+
+const colorPickerStyle={
+    height:'auto',
+
 }
 const descriptionStyle = {
     width: '90dvw',
@@ -62,14 +74,14 @@ const floatingButtonStyle = {
     boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)"
 }
 
-const titleStyle={
+const titleStyle = {
     fontSize: '28px',
     fontWeight: 'bold',
     fontFamily: 'monospace',
-    marginRight: 'auto', 
+    marginRight: 'auto',
     border: 'none',
     outline: 'none',
-    padding:'0.4rem',
-    marginLeft:'2vw',
-    backgroundColor:"transparent"
+    padding: '0.4rem',
+    marginLeft: '2vw',
+    backgroundColor: "transparent"
 }

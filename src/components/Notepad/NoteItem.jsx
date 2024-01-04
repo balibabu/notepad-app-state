@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import GlobalContext from '../Global/GlobalContext';
 
 export default function NoteItem({ note, views, hierarchy }) {
@@ -11,7 +11,7 @@ export default function NoteItem({ note, views, hierarchy }) {
     return (
         <div style={{ ...views.containerStyle, backgroundColor: note.color }}>
             <div style={views.descriptionStyle}
-                onClick={views.onClick}>
+                onClick={()=>views.onClick(note.id)}>
                 {note.description}
             </div>
 

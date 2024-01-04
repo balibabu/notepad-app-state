@@ -1,14 +1,29 @@
-import { addNote, deleteNote } from "../HttpRequests/notepad";
-export async function createNote(note, setApp) {
+import { addNote, deleteNote, updateNote } from "../HttpRequests/notepad";
+export async function create_note(note, setApp) {
     console.log(note);
-    if (note.description.length===0) { return; }
+    if (note.description.length === 0) { return; }
     const newNote = await addNote(note);
-    
+
     setApp((prev) => {
         const updatedApp = { ...prev };
         updatedApp.modal.notes = [newNote, ...updatedApp.modal.notes];
         return updatedApp;
     })
+}
+
+export async function update_note(newNote, setApp) {
+    const status = await updateNote(newNote);
+    if (status) {
+        setApp((prev) => {
+            const updatedApp = { ...prev };
+            updatedApp.modal.notes = updatedApp.modal.notes.map((note) =>
+                note.id === newNote.id ? newNote : note
+            );
+            return updatedApp;
+        });
+    } else {
+        console.log('Something went wrong while updating');
+    }
 }
 
 

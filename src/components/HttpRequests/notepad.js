@@ -23,9 +23,9 @@ const addNote = async (noteData) => {
   }
 };
 
-const updateNote = async (noteId, noteData) => {
+const updateNote = async (noteData) => {
   try {
-    const response = await axios.put(`${BASE_URL}${noteId}/`, noteData);
+    const response = await axios.put(`${BASE_URL}${noteData.id}/`, noteData);
     if(response.status===200){
       return true;
     }else{

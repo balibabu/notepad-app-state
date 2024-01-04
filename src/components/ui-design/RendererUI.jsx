@@ -7,7 +7,7 @@ export default function RendererUI({setApp,isSmallScreen}) {
         updateAppState(setApp, renderContainerStyle, 'views noteapp renderer containerStyle');
         updateAppState(setApp, noteDescriptionStyle, 'views noteapp renderer noteItem descriptionStyle');
         updateAppState(setApp, noteDeleteButtonStyle, 'views noteapp renderer noteItem deleteButton style');
-    }, [])
+    }, [isSmallScreen])
 
     return (
         <></>
@@ -23,7 +23,6 @@ const noteContainerStyle = {
     border: "1px solid rgb(100, 100, 100)",
     borderRadius: "10px",
     backgroundColor: '#bde0fe',
-
 };
 
 const noteDescriptionStyle = {
